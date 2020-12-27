@@ -1,0 +1,38 @@
+<div class="container" style="display: flex;">
+  <form #formInfo="ngForm" action="" style="margin: auto;">
+    <h1>Company</h1>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">ID</span>
+      <input class="form-control" disabled name="id" id="idInput" type="number" placeholder="{{this.company.id}}" [(ngModel)]="company.id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Name</span>
+      <input class="form-control" #nameInfo="ngModel" required name="name" id="nameInput" type="text" placeholder="{{this.company.name}}" [(ngModel)]="company.name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Email</span>
+      <input class="form-control" #emailInfo="ngModel" required email name="email" id="emailInput" type="email" placeholder="{{this.company.email}}" [(ngModel)]="company.email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+   <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Password </span>
+      <input class="form-control" #passwordInfo="ngModel" required name="password" id="passwordInput" type="password" placeholder="{{this.company.password}}" [(ngModel)]="company.password" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+   </div>
+    <br>
+
+    <ng-container *ngIf="id; else elseTemplate">
+      <button class="btn btn-primary" type="submit" [disabled]="formInfo.invalid||emailInfo.errors?.required||passwordInfo.errors?.required||nameInfo.errors?.required" (click)="updateCompany()">SubmitUpdate</button>
+    </ng-container>
+    <ng-template #elseTemplate>
+       <button class="btn btn-primary" type="submit" [disabled]="formInfo.invalid||emailInfo.errors?.required||passwordInfo.errors?.required||nameInfo.errors?.required" (click)="addCompany()">SubmitAdd</button>
+    </ng-template>
+
+  </form>
+</div>
+

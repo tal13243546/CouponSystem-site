@@ -1,0 +1,119 @@
+<div class="container">
+  <ng-container *ngIf="loginResponse.token && loginResponse.type === 'company'; else elseTemplate">
+    <h1>Your Details</h1>
+
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{company.id}}</td>
+          <td>{{company.name}}</td>
+          <td>{{company.email}}</td>
+          <td>{{company.password}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+
+    <h1>Your Coupons</h1>
+
+    <ng-container *ngIf="ownCoupons.length > 0 ||category!== undefined ||maxPrice!== undefined; else elseTemplate">
+      <div class="input-group input-group-sm mb-3" style="width:200px;">
+        <span class="input-group-text">Price </span>
+        <input class="form-control" name="max_price" id="maxPriceInput" type="number" placeholder="Choose max price"
+          [(ngModel)]="maxPrice" (change)="filterPrice()" aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
+
+      <div class="form-floating" style="width:200px;">
+        <select class="form-select" name="category" id="categoryInput" [(ngModel)]="category"
+          (change)="filterCategory()" aria-label="Floating label select example">
+          <option selected disabled>Choose Category</option>
+          <option *ngFor="let category of categories" value="{{category.value}}">{{category.viewValue}}</option>
+        </select>
+        <label for="floatingSelect">Category</label>
+      </div>
+
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Company ID</th>
+            <th>Category</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>StartDate</th>
+            <th>EndDate</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Actions
+              <div class="d-grid gap-2 col-1 mx-auto" style="width: 50px;">
+                <button type="button" title="Add" class="btn btn-outline-success" (click)="goToCouponForm('add')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-plus-square" viewBox="0 0 16 16">
+                    <path
+                      d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                    <path
+                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                  </svg>
+                </button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let coupon of ownCoupons">
+            <td>{{coupon.id}}</td>
+            <td>{{coupon.companyId}}</td>
+            <td>{{coupon.category}}</td>
+            <td>{{coupon.title}}</td>
+            <td>{{coupon.description}}</td>
+            <td>{{coupon.startDate | date}}</td>
+            <td>{{coupon.endDate | date}}</td>
+            <td>{{coupon.amount}}</td>
+            <td>{{coupon.price}}</td>
+            <td>{{coupon.image}}</td>
+            <td>
+              <div class="d-grid gap-2 d-md-block">
+                <button type="button" title="Update" class="btn btn-outline-warning" (click)="goToCouponForm('update', coupon)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg>
+                </button>
+                <button type="button" title="Delete" class="btn btn-outline-danger" (click)="deleteCoupon(coupon.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                    <path fill-rule="evenodd"
+                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <h2>You don`t have any coupon..</h2>
+      <p>To add coupon click <button mat-raised-button (click)="goToCouponForm('add')">here</button></p>
+    </ng-template>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <h1>You need to login..</h1>
+  </ng-template>
+
+</div>

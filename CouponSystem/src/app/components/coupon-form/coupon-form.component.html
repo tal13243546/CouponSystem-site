@@ -1,0 +1,71 @@
+<div class="container" style="display: flex;">
+  <form #formInfo="ngForm" action="" style="margin: auto;">
+    <h1>Coupon</h1>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">ID</span>
+      <input class="form-control" disabled name="id" id="idInput" type="text" placeholder="{{coupon.id}}" [(ngModel)]="coupon.id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Company ID</span>
+      <input class="form-control" disabled name="companyId" id="companyIdInput" type="number" placeholder="{{companyId}}" [(ngModel)]="coupon.companyId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Title</span>
+      <input class="form-control" #titleInfo="ngModel" required name="title" id="titleInput" type="text" placeholder="{{coupon.title}}" [(ngModel)]="coupon.title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3" style="width:350px;">
+      <span class="input-group-text">Description</span>
+      <input class="form-control" #descriptionInfo="ngModel" required name="description" id="descriptionInput" type="text" placeholder="{{coupon.description}}" [(ngModel)]="coupon.description" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Start Date</span>
+      <input class="form-control" #startDateInfo="ngModel" required name="startDate" id="startDateInput" type="date" placeholder="{{coupon.startDate}}" [(ngModel)]="coupon.startDate" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">End Date</span>
+      <input class="form-control" #endDateInfo="ngModel" required name="endDate" id="endDateInput" type="date" placeholder="{{coupon.endDate}}" [(ngModel)]="coupon.endDate" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Amount</span>
+      <input class="form-control" #amountInfo="ngModel" required name="amount" id="amountInput" type="number" placeholder="{{coupon.amount}}" [(ngModel)]="coupon.amount" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Price</span>
+      <input class="form-control" #priceInfo="ngModel" required name="price" id="priceInput" type="number" placeholder="{{coupon.price}}" [(ngModel)]="coupon.price" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text">Image</span>
+      <input class="form-control" name="image" id="imageInput" type="text" placeholder="{{coupon.image}}" [(ngModel)]="coupon.image" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="form-floating">
+      <!-- <span>Category</span> -->
+      <select class="form-select" #categoryInfo="ngModel" required name="category" id="categoryInput" [(ngModel)]="coupon.category" aria-label="Floating label select example">
+        <option selected disabled value="placeHolder">Choose Category</option>
+        <option *ngFor="let category of categories" value="{{category.value}}">{{category.viewValue}}</option>
+      </select>
+      <label for="floatingSelect">Category</label>
+    </div>
+    <br>
+
+    <ng-container *ngIf="coupon.id; else elseTemplate">
+      <button class="btn btn-primary" type="submit" [disabled]="formInfo.invalid||titleInfo.errors?.required||descriptionInfo.errors?.required||startDateInfo.errors?.required||endDateInfo.errors?.required||amountInfo.errors?.required||priceInfo.errors?.required||categoryInfo.errors?.required"
+      (click)="updateCoupon()">SubmitUpdate</button>
+    </ng-container>
+    <ng-template #elseTemplate>
+       <button class="btn btn-primary" type="submit" [disabled]="formInfo.invalid||titleInfo.errors?.required||descriptionInfo.errors?.required||startDateInfo.errors?.required||endDateInfo.errors?.required||amountInfo.errors?.required||priceInfo.errors?.required||categoryInfo.errors?.required"
+      (click)="addCoupon()">SubmitAdd</button>
+    </ng-template>
+
+  </form>
+</div>
+

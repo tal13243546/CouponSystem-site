@@ -1,0 +1,43 @@
+<div class="container" style="display: flex;">
+  <form #formInfo="ngForm" action="" style="margin: auto;">
+    <h1>Customer</h1>
+
+    <div class="input-group input-group-sm mb-3" style="width:350px;">
+      <span class="input-group-text">ID</span>
+      <input class="form-control" disabled name="id" id="idInput" type="text" placeholder="{{this.customer.id}}" [(ngModel)]="customer.id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+    <div class="input-group input-group-sm mb-3" style="width:350px;">
+      <span class="input-group-text">First Name</span>
+      <input class="form-control" #firstNameInfo="ngModel" required name="firstName" id="firstNameInput" type="text" placeholder="{{this.customer.firstName}}" [(ngModel)]="customer.firstName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+    <div class="input-group input-group-sm mb-3" style="width:350px;">
+      <span class="input-group-text">Last Name</span>
+      <input class="form-control" #lastNameInfo="ngModel" required name="lastName" id="lastNameInput" type="text" placeholder="{{this.customer.lastName}}" [(ngModel)]="customer.lastName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+    <div class="input-group input-group-sm mb-3" style="width:350px;">
+      <span class="input-group-text">Email</span>
+      <input class="form-control" #emailInfo="ngModel" required email name="email" id="emailInput" type="email" placeholder="{{this.customer.email}}" [(ngModel)]="customer.email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+    <div class="input-group input-group-sm mb-3" style="width:350px;">
+      <span class="input-group-text">Password </span>
+      <input class="form-control" #passwordInfo="ngModel" required name="password" id="passwordInput" type="password" placeholder="{{this.customer.password}}" [(ngModel)]="customer.password" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <br>
+
+    <ng-container *ngIf="customer.id; else elseTemplate">
+      <button class="btn btn-primary" type="submit" [disabled]="formInfo.invalid||emailInfo.errors?.required||passwordInfo.errors?.required||firstNameInfo.errors?.required||lastNameInfo.errors?.required" (click)="updateCustomer()">SubmitUpdate</button>
+    </ng-container>
+    <ng-template #elseTemplate>
+       <button class="btn btn-primary" type="submit" [disabled]="formInfo.invalid||emailInfo.errors?.required||passwordInfo.errors?.required||firstNameInfo.errors?.required||lastNameInfo.errors?.required" (click)="addCustomer()">SubmitAdd</button>
+    </ng-template>
+
+  </form>
+</div>

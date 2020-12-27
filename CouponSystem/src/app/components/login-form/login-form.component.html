@@ -1,0 +1,39 @@
+<div>
+  <form #formInfo="ngForm" action="submit">
+    <h1>Login</h1>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input #emailInfo="ngModel" required email name="email" type="email" id="emailInput" matInput placeholder="example@mail.com"
+        [(ngModel)]="loginDetails.email">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input #passwordInfo="ngModel" required name="password" type="password" id="passwordInput" matInput placeholder="pls insert password"
+      [(ngModel)]="loginDetails.password">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Client Type</mat-label>
+      <mat-select #typeInfo="ngModel" required name="type" id="typeInput" [(ngModel)]="loginDetails.type">
+        <mat-option selected disabled value="placeHolder">Choose Type</mat-option>
+        <mat-option *ngFor="let type of types" [value]="type.value">
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <span>Type</span>
+    <select name="type" id="typeInput" [(ngModel)]="loginDetails.type">
+      <option selected disabled value="placeHolder">Choose Type</option>
+      <option value="admin">Admin</option>
+      <option value="company">Company</option>
+      <option value="customer">Customer</option>
+    </select> -->
+    <br>
+    <button mat-raised-button type="submit" [disabled]="formInfo.invalid||emailInfo.errors?.required||passwordInfo.errors?.required||typeInfo.errors?.required" (click)="login()">Login</button>
+  </form>
+</div>

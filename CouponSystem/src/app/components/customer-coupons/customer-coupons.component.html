@@ -1,0 +1,58 @@
+<div class="container">
+  <span><h1>Your Coupons</h1></span>
+
+  <ng-container *ngIf="ownCoupons.length > 0||category!== undefined ||maxPrice!== undefined; else elseTemplate">
+
+    <div class="input-group input-group-sm mb-3" style="width:200px;">
+      <span class="input-group-text">Price </span>
+      <input class="form-control" name="max_price" id="maxPriceInput" type="number" placeholder="Choose max price" [(ngModel)]="maxPrice" (change)="filterPrice()" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+    <div class="form-floating" style="width:200px;">
+      <select class="form-select" name="category" id="categoryInput" [(ngModel)]="category" (change)="filterCategory()" aria-label="Floating label select example">
+        <option selected disabled value="placeHolder">Choose Category</option>
+        <option *ngFor="let category of categories" value="{{category.value}}">{{category.viewValue}}</option>
+      </select>
+      <label for="floatingSelect">Category</label>
+    </div>
+
+    <table class="table">
+      <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Company ID</th>
+      <th>Category</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>StartDate</th>
+      <th>EndDate</th>
+      <th>Amount</th>
+      <th>Price</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let coupon of ownCoupons">
+      <td>{{coupon.id}}</td>
+      <td>{{coupon.companyId}}</td>
+      <td>{{coupon.category}}</td>
+      <td>{{coupon.title}}</td>
+      <td>{{coupon.description}}</td>
+      <td>{{coupon.startDate | date}}</td>
+      <td>{{coupon.endDate | date}}</td>
+      <td>{{coupon.amount}}</td>
+      <td>{{coupon.price}}</td>
+      <td>{{coupon.image}}</td>
+    </tr>
+  </tbody>
+  </table>
+  <br>
+  <button type="button" class="btn btn-warning" (click)="goToCustomer()">Last Page</button>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <h2>You don`t have any coupon..</h2>
+    <p>To buy coupons click <button type="button" class="btn btn-warning" (click)="goToCustomer()">Here</button></p>
+  </ng-template>
+
+
+</div>

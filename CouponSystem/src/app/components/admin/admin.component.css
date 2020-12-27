@@ -1,0 +1,21 @@
+/* table{
+  margin: auto;
+  }
+  table, th,td{
+  border: 1px solid lightseagreen;
+  }
+  tr:nth-child(even){
+  background-color: lightcyan;
+  }
+  tr:nth-child(odd){
+  background-color: lightskyblue;
+  }
+  tr:first-child{
+  background-color: bisque;
+  } */
+  .frame{
+    height: 100%;
+    overflow: auto;
+    display: flex;
+  }
+
